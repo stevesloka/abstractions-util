@@ -1,0 +1,65 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "vincent-jenkins-slave",
+    "namespace": "vincent",
+    "labels": {
+      "name": "jenkins-slave",
+      "app": "vincent"
+    }
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "name": "jenkins-slave",
+      "app": "vincent"
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "name": "jenkins-slave",
+          "app": "vincent"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "secret-volume",
+            "secret": {
+              "secretName": "vincent-svc"
+            }
+          },
+          {
+            "name": "dind",
+            "hostPath": {
+              "path": "/var/run/docker.sock"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "slave",
+            "image": "artifactory.upmc.com/vincent/jenkins-slave:latest",
+            "volumeMounts": [
+              {
+                "name": "secret-volume",
+                "mountPath": "/etc/secret-volume"
+              },
+              {
+                "name": "dind",
+                "mountPath": "/var/run/docker.sock"
+              }
+            ],
+            "securityContext": {
+              "privileged": true
+            }
+          }
+        ],
+        "nodeSelector": {
+          "type": "jenkins"
+        }
+      }
+    }
+  }
+}
