@@ -20,7 +20,10 @@ spec:
           - name: DATABASE_USERNAME
             value: root
           - name: DATABASE_PASSWORD
-            value: password
+            valueFrom:
+              secretKeyRef:
+                name: mysql-creds
+                key: mysql-root-password
         readinessProbe:
           # an http probe
           httpGet:
