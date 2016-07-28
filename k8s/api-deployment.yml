@@ -15,7 +15,7 @@ spec:
         imagePullPolicy: Always
         ports:
           - name: api
-            containerPort: 8080
+            containerPort: 9443
         env:
           - name: DATABASE_USERNAME
             value: root
@@ -24,6 +24,8 @@ spec:
               secretKeyRef:
                 name: mysql-creds
                 key: mysql-root-password
+          - name: DATABASE_HOST
+            value: mysql
         readinessProbe:
           # an http probe
           httpGet:
@@ -31,5 +33,5 @@ spec:
             port: 80
           # length of time to wait for a pod to initialize
           # after pod startup, before applying health checking
-          initialDelaySeconds: 30
+          initialDelaySeconds: 5
           timeoutSeconds: 1
