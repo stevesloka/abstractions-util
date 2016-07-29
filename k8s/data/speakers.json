@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Jeffrey Zeldman",
+    "image": "jeffrey-zeldman.jpg",
+    "bio": {
+      "short": "A List Apart",
+      "long": "Founder of A List Apart, Happy Cog Design."
+    },
+    "talk": {
+      "topic": "design",
+      "title": "TBD",
+      "abstract": "bar"
+    },
+    "twitter": "zeldman"
+  }
+]
