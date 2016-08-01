@@ -2,24 +2,24 @@
   "kind": "ReplicationController",
   "apiVersion": "v1",
   "metadata": {
-    "name": "vincent-jenkins-slave",
-    "namespace": "vincent",
+    "name": "jenkins-slave",
     "labels": {
       "name": "jenkins-slave",
-      "app": "vincent"
-    }
+      "app": "jenkins"
+    },
+    "namespace": "jenkins"
   },
   "spec": {
     "replicas": 1,
     "selector": {
       "name": "jenkins-slave",
-      "app": "vincent"
+      "app": "jenkins"
     },
     "template": {
       "metadata": {
         "labels": {
           "name": "jenkins-slave",
-          "app": "vincent"
+          "app": "jenkins"
         }
       },
       "spec": {
@@ -27,7 +27,7 @@
           {
             "name": "secret-volume",
             "secret": {
-              "secretName": "vincent-svc"
+              "secretName": "jenkins-svc"
             }
           },
           {
@@ -40,7 +40,7 @@
         "containers": [
           {
             "name": "slave",
-            "image": "artifactory.upmc.com/vincent/jenkins-slave:latest",
+            "image": "stevesloka/jenkins-slave:latest",
             "volumeMounts": [
               {
                 "name": "secret-volume",
@@ -55,10 +55,7 @@
               "privileged": true
             }
           }
-        ],
-        "nodeSelector": {
-          "type": "jenkins"
-        }
+        ]
       }
     }
   }

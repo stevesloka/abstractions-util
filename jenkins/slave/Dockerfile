@@ -15,12 +15,14 @@ RUN apk add --update \
 		py-pip \
 		openssh \
 		supervisor \
+    go \
 	  && rm -rf /var/cache/apk/*
 
 RUN npm install -g gulp grunt bower
+RUN mkdir -p /root/godev
 
 # Install AWS CLI
-RUN pip install awscli && pip install awsebcli
+#RUN pip install awscli && pip install awsebcli
 
 RUN curl --create-dirs -sSLo /usr/share/jenkins/swarm-client-$JENKINS_SWARM_VERSION-jar-with-dependencies.jar http://maven.jenkins-ci.org/content/repositories/releases/org/jenkins-ci/plugins/swarm-client/$JENKINS_SWARM_VERSION/swarm-client-$JENKINS_SWARM_VERSION-jar-with-dependencies.jar \
   && chmod 755 /usr/share/jenkins
