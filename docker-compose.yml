@@ -8,17 +8,17 @@ services:
     ports:
       - 3306:3306
   api:
-    build: ../api
+    build: ../abstractions-api
     ports:
       - 8080:9443
     environment:
       - DATABASE_HOST=db
   webapp:
-    build: ../webapp
+    build: ../abstractions-web
     ports:
       - 80:80
       - 443:443
     links:
       - api
     volumes:
-      - ../webapp/dist:/usr/share/nginx/html
+      - ../abstractions-web/dist:/usr/share/nginx/html
