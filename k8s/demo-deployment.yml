@@ -26,8 +26,8 @@ type: Opaque
 
 ---
 
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: mysql
 spec:
@@ -91,8 +91,8 @@ spec:
 
 ---
 
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: api
   annotations:
@@ -574,10 +574,12 @@ metadata:
 
 ---
 
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: web
+  annotations:
+    emmie-update: web
 spec:
   replicas: 1
   template:
