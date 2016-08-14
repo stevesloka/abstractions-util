@@ -53,7 +53,7 @@ spec:
           - name: MYSQL_DATABASE
             value: abstractions
       - name: mysql-healthz
-        image: stevesloka/mysql-healthz
+        image: 192.168.2.50:5000/stevesloka/mysql-healthz:1.0.0
         imagePullPolicy: Always
         ports:
           - name: healthz
@@ -589,7 +589,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.2.50:5000/stevesloka/abstractions-web:1.0.1
+        image: 192.168.2.50:5000/stevesloka/abstractions-web:1.0.0
         imagePullPolicy: Always
         ports:
           - name: tls
@@ -617,7 +617,7 @@ spec:
           - name: APIURL
             value: "http://localhost/api/version"
           - name: MINVERSION
-            value: "1.0.1"
+            value: "1.0.0"
       volumes:
         - name: web-speakers
           configMap:
