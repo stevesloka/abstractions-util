@@ -1,17 +1,30 @@
 # abstractions-util
 
+## Demo
 
-## 101 Demo (Deploy multiple environments)
-
-1. Deploy app with nothing yet deployed (show it works)
-- Explain how it's setup an deployed
-- Kube demo (Show how basic things work?)
-- Create a namespace and deploy 2nd version (identical)
-- Update config map on new branch and show how it changes (i.e. Config is in the environment)
-- Show how now we have 2 different environments deployed in parallel
-- Update API code (Deploy new branch with Emmie? / Update deployment and just do by hand?)
-
-## 201 Demo
-1. Overview of Emmie
-- Delete previous environment and deploy new version with new branch (change the api)
--
+1. Show configmap (/usr/share/nginx/html/assets/data)
+2. Update configmap
+```
+{
+  "name": "Steve Sloka",
+  "image": "steve-sloka.jpg",
+  "bio": {
+    "short": "Kubernaut / UPMC Enterprises",
+    "long": "Kubernetes / Golang / Containers"
+  },
+  "talk": {
+    "topic": "Containers, Cloud, Kubernetes",
+    "title": "Containerized Cloud Native Deployments",
+    "abstract": "foo"
+  },
+  "twitter": "stevesloka"
+}
+```
+3. Show secrets
+4. Update / deploy / printenv
+5. Create namespace
+6. Update deis router namespace
+7. Deploy same app
+8. Build new version of web / deploy (readinessProbe should fail!)
+9. Deploy new version of api
+10. Web should then go healthy and app should work

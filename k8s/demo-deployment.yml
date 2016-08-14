@@ -106,7 +106,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: 192.168.2.50:5000/abstractions-api
+        image: 192.168.2.50:5000/stevesloka/abstractions-api:1.0.0
         imagePullPolicy: Always
         ports:
           - name: api
@@ -589,7 +589,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.2.50:5000/abstractions-web
+        image: 192.168.2.50:5000/stevesloka/abstractions-web:1.0.1
         imagePullPolicy: Always
         ports:
           - name: tls
@@ -599,6 +599,25 @@ spec:
         volumeMounts:
           - name: web-speakers
             mountPath: /usr/share/nginx/html/assets/data
+        readinessProbe:
+          # an http probe
+          httpGet:
+            path: /healthz
+            port: 9090
+          # length of time to wait for a pod to initialize
+          # after pod startup, before applying health checking
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+      - name: healthz
+        image: 192.168.2.50:5000/stevesloka/webapp-healthz:1.0.0
+        imagePullPolicy: Always
+        env:
+          - name: HTTP_ADDR
+            value: ":9090"
+          - name: APIURL
+            value: "http://localhost/api/version"
+          - name: MINVERSION
+            value: "1.0.1"
       volumes:
         - name: web-speakers
           configMap:
