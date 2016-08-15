@@ -98,7 +98,7 @@ metadata:
   annotations:
     emmie-replace: api
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -581,7 +581,7 @@ metadata:
   annotations:
     emmie-update: web
 spec:
-  replicas: 1
+  replicas: 4
   template:
     metadata:
       labels:
