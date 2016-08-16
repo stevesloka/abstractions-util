@@ -84,7 +84,7 @@ metadata:
 spec:
   ports:
     - name: api
-      port: 9443
+      port: 8080
   selector:
     app: api
   type: NodePort
@@ -110,11 +110,13 @@ spec:
         imagePullPolicy: Always
         ports:
           - name: api
-            containerPort: 9443
+            containerPort: 8080
         env:
-          - name: DATABASE_USERNAME
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://mysql/abstractions
+          - name: SPRING_DATASOURCE_USERNAME
             value: root
-          - name: DATABASE_PASSWORD
+          - name: SPRING_DATASOURCE_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mysql-creds
@@ -124,8 +126,8 @@ spec:
         readinessProbe:
           # an http probe
           httpGet:
-            path: /healthz
-            port: 80
+            path: /health
+            port: 8080
           # length of time to wait for a pod to initialize
           # after pod startup, before applying health checking
           initialDelaySeconds: 5

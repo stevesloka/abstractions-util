@@ -1,7 +1,7 @@
 version: '2'
 services:
   db:
-    image: mysql:5.7
+    image: mysql:5.6
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=abstractions
@@ -13,6 +13,8 @@ services:
       - 8080:9443
     environment:
       - DATABASE_HOST=db
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=password
   webapp:
     build: ../abstractions-web
     ports:
