@@ -98,7 +98,7 @@ metadata:
   annotations:
     emmie-replace: api
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -617,7 +617,7 @@ spec:
           - name: HTTP_ADDR
             value: ":9090"
           - name: APIURL
-            value: "http://localhost/api/version"
+            value: "http://localhost/api/info"
           - name: MINVERSION
             value: "1.0.0"
       volumes:
