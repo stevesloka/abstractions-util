@@ -1,0 +1,47 @@
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata: 
+  name: pixelcorpwww
+  namespace: root-ingressroute
+spec: 
+  virtualhost:
+    fqdn: www.pixelcorp.dev
+    tls:
+      secretName: pixelcorpdev-tls-wild
+  routes: 
+    - match: /
+      delegate:
+        name: web
+        namespace: pixelcorp 
+---
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata: 
+  name: pixelcorp
+  namespace: root-ingressroute
+spec: 
+  virtualhost:
+    fqdn: pixelcorp.dev
+    tls:
+      secretName: pixelcorpdev-tls-wild
+  routes: 
+    - match: /
+      delegate:
+        name: web
+        namespace: pixelcorp
+    - match: /team
+      delegate:
+        name: api
+        namespace: pixelcorp
+---
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata: 
+  name: web
+  namespace: pixelcorp
+spec: 
+  routes: 
+    - match: /
+      services: 
+        - name: web
+          port: 80

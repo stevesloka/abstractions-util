@@ -1,0 +1,11 @@
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata: 
+  name: api
+  namespace: pixelcorp
+spec: 
+  routes: 
+    - match: /team
+      services: 
+        - name: api
+          port: 8080

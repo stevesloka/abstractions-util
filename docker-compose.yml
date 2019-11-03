@@ -1,26 +1,32 @@
-version: '2'
+version: '3.3'
 services:
   db:
-    image: mysql:5.6
+    image: mysql:5.7
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=abstractions
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: 'pixelcorp'
     ports:
-      - 3306:3306
+      - "3307:3306"
+    expose:
+      - '3306'
   api:
-    build: ../abstractions-api
+    restart: always
+    build: ../pixelcorp-api-java
     ports:
       - 8080:9443
+    expose:
+      - '8080'
     environment:
-      - DATABASE_HOST=db
-      - DATABASE_USERNAME=root
-      - DATABASE_PASSWORD=password
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/pixelcorp
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
   webapp:
-    build: ../abstractions-web
+    build: ../pixelcorp-web
     ports:
       - 80:80
       - 443:443
-    links:
-      - api
-    volumes:
-      - ../abstractions-web/dist:/usr/share/nginx/html
+    expose:
+      - '80'
+      - '443'
+    # volumes:
+    #   - ../pixelcorp-web/dist:/usr/share/nginx/html
